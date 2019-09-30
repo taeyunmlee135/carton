@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 
+// Components 
+import Navbar from './components/Navbar'
+
 // pages 
+import home from './pages/home';
 import chores from './pages/chores';
 import addChores from './pages/addChores';
+
 
 class App extends Component {
 
@@ -12,11 +17,14 @@ class App extends Component {
       return (
           <div className="App">
               <Router>
-                <Switch>
-                  <Route exact path = '/' component = {chores } />
-                  <Route exact path = '/' component = {addChores } />
-                  
-                </Switch>
+                <div className = "container">
+                  <Navbar/>
+                  <Switch>
+                    <Route exact path = '/' component = {home} />
+                    <Route exact path = '/chores' component = {chores} />
+                    <Route exact path = '/addChores' component = {addChores} />
+                  </Switch>
+                </div>
               
               </Router>
           </div>
