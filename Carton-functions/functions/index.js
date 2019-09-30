@@ -9,7 +9,7 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
   response.send("Hello from Firebase!");
  });
 
- exports.getChores = functions.https.onRequest((req, res) => {
+exports.getChores = functions.https.onRequest((req, res) => {
     admin.firestore().collection('Chores').get()
     .then(data => {
         let chores = [];
@@ -20,25 +20,25 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         return res.json(chores);
     })
     .catch(err => console.error(err))
- })
+})
+ 
+exports.createChore = functions.https.onRequest((req, res) => {
+    const newChore = {
+        chore : req.body.chore,
+        userSubmitted : req.body.userSubmitted, 
+        userDo : req.body.userDo,
+        postedAt : admin.firestore.Timestamp.fromDate(new Date())
 
- exports.createChore = functions.https.onRequest((req, res) => {
-     const newChore = {
-         chore : req.body.chore,
-         userSubmitted : req.body.userSubmitted, 
-         userDo : req.body.userDo,
-         postedAt : admin.firestore.Timestamp.fromDate(new Date())
-
-     };
-     admin
+    };
+    admin
         .firestore()
         .collection('Chores')
         .add(newChore)
         .then((doc) => {
             res.json({ message: `document ${doc.id} created successfully`});
         })
-     .catch((err) => {
-         res.status(500).json({ error : 'something went wrong'});
-         console.error(err);
-     });
- });
+    .catch((err) => {
+        res.status(500).json({ error : 'something went wrong'});
+        console.error(err);
+    });
+});
