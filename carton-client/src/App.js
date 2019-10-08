@@ -9,6 +9,7 @@ import Navbar from './components/Navbar'
 import home from './pages/home';
 import chores from './pages/chores';
 import addChores from './pages/addChores';
+import login from './pages/login';
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
                     <Route exact path = '/' component = {home} />
                     <Route exact path = '/chores' component = {chores} />
                     <Route exact path = '/addChores' component = {addChores} />
+                    <Route exact path = '/login' component = {login} />
                   </Switch>
                 </div>
               
