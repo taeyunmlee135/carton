@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import withStyles from '@material-ui/core/styles/withStyles'
 
-// MUI things
+// MUI imports
 import Card from '@material-ui/core/Card';
 //import CardActionArea from '@material-ui/core/CardActionArea';
 //import CardActions from '@material-ui/core/CardActions';
@@ -15,9 +15,11 @@ const styles = {
     }
 }
 
+// This is our component that will render a chore
 class Chore extends Component { 
 
     render(){
+        // These are the variables (properties) needed for a Chore `component (rendered at bottom)
         const{ classes, chore: {chore_name, postedAt, userDo, userSubmitted} } = this.props
         return(
             <Card>
