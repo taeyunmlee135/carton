@@ -11,7 +11,7 @@ class Navbar extends Component {
 
     render(){
         return (
-            <AppBar position='fixed'>
+            <AppBar id="header" position='fixed'>
                 <Toolbar> 
                     <Button color="blue" component={Link} to='/'> Home </Button>
                     <Button color="blue" component={Link} to='/chores'> Chores </Button> 

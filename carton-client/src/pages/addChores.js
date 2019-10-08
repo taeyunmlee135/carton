@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
+import SubmitChore from '../components/SubmitChore';
 import TextField from '@material-ui/core/TextField';
 
 export class addChores extends Component {
@@ -14,7 +15,7 @@ export class addChores extends Component {
         return (
             <div className = "container">
                   <h1> Add Chores Page </h1>
-
+                <div className = "vertical">
                 <TextField
                     label="Chore"
                     margin="normal"
@@ -35,9 +36,8 @@ export class addChores extends Component {
                     margin="normal"
                     variant="filled"
                 />
-
-
-
+                </div>
+                <SubmitChore />
             </div>
         )
     }
