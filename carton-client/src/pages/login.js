@@ -16,6 +16,7 @@ export class login extends Component {
             <div className = "container">
                   <h1> Login Page </h1>
                 <div className = "vertical">
+                
                 <TextField
                     label="Username"
                     margin="normal"
@@ -26,8 +27,9 @@ export class login extends Component {
                     margin="normal"
                     variant="filled"
                 />
+                {/* TODO: add a "remember me" feature */}
                 </div>
-                <Login />
+                <Login /> {/*button for login, currently links back to the home page*/}
             </div>
         )
     }
