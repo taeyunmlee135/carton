@@ -11,8 +11,9 @@ class Navbar extends Component {
 
     render(){
         return (
-            <AppBar id="header" position='fixed'>
+            <AppBar position='fixed'>
                 <Toolbar> 
+
                     <Button component={Link} to='/'> Home </Button>
                     <Button component={Link} to='/chores'> Chores </Button> 
                     <Button component={Link} to='/login'> Login </Button>
@@ -24,6 +25,5 @@ class Navbar extends Component {
 
 
 }
-
 export default Navbar  
 
