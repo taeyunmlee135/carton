@@ -20,14 +20,14 @@ class Chore extends Component {
 
     render(){
         // These are the variables (properties) needed for a Chore `component (rendered at bottom)
-        const{ classes, chore: {chore_name, postedAt, userDo, userSubmitted} } = this.props
+        const{ classes, chore: {chore, userSubmitted, userDo} } = this.props
+    
         return(
             <Card>
                 <CardContent>
-                    <Typography variant="h5">{chore_name}</Typography>
-                    <Typography variant="h5">{postedAt}</Typography>
-                    <Typography variant="h5">{userDo}</Typography>
+                    <Typography variant="h5">{chore}</Typography>
                     <Typography variant="h5">{userSubmitted}</Typography>
+                    <Typography variant="h5">{userDo}</Typography>
                 </CardContent>
             </Card>
         )

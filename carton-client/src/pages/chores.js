@@ -15,9 +15,9 @@ export class chores extends Component {
     state = {
         chores: null
     };
-
+    
     componentDidMount(){
-        axios.get('/chores')
+        axios.get('https://us-central1-carton-5d613.cloudfunctions.net/api/chores') // TODO: Change to not our api URL later 
             .then(res => {
                 console.log(res.data)
                 this.setState({
@@ -26,10 +26,16 @@ export class chores extends Component {
             })
             .catch(err => console.log(err));
     }
+
+
     render(){
-        let recentChoresMarkup = this.state.chores ? (
+        /*let recentChoresMarkup = this.state.chores ? (
             this.state.chores.map(chore => <p>{chore.chore}</p>)
-        )   : <p>Loading...</p>
+        ) : <p>Loading...</p>*/
+        let recentChoresMarkup = this.state.chores ?
+        ( this.state.chores.map(c => <Chore key={c.choreId} chore={c}/>))
+        : <p>Loading...</p>
+
         return (
             <Grid container spacing={16}>
                 <Grid item sm={8} xs={12}>
@@ -39,6 +45,7 @@ export class chores extends Component {
                 <Grid item sm={4} xs={12}>
                     <p>Users</p>
                 </Grid>
+                <AddFab />
             </Grid>
             /*
             <div className = "container">
