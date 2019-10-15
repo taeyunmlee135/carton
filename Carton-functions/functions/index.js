@@ -2,14 +2,23 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const app = require('express')();
 
+// import cors, required because server and client are separated
+const cors = require('cors');
+app.use(cors());
+
 admin.initializeApp();
 
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+//   next();
+// });
 
-app.get("/chores", (req, res) => {
+
+app.get("/chores", (req, res, next) => {
   admin
     .firestore()
     .collection("Chores")
-    .orderBy("postedAt", "desc")
+    .orderBy("postedAt", "desc") 
     .get()
     .then(data => {
       let chores = [];
@@ -24,10 +33,10 @@ app.get("/chores", (req, res) => {
       });
       return res.json(chores);
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error(err)); // diff status? (200?) `res.status(200).json`
 });
 
-app.post("/chore", (req, res) => {
+app.post("/chore", (req, res, next) => {
   const newChore = {
     chore: req.body.chore,
     userSubmitted: req.body.userSubmitted,
@@ -49,4 +58,4 @@ app.post("/chore", (req, res) => {
 
 
 
-exports.api = functions.https.onRequest(app);
+exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
