@@ -8,12 +8,6 @@ admin.initializeApp();
 const cors = require('cors');
 app.use(cors({origin: true}));
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-//   next();
-// });
-
-
 app.get("/chores", (req, res, next) => {
   admin
     .firestore()
@@ -26,7 +20,7 @@ app.get("/chores", (req, res, next) => {
         chores.push({
           choreId: doc.id,
           chore: doc.data().chore,
-          userSubmitted: doc.data.userSubmitted,
+          userSubmitted: doc.data().userSubmitted,
           userDo: doc.data().userDo,
           postedAt: doc.data().postedAt
         });
@@ -36,7 +30,7 @@ app.get("/chores", (req, res, next) => {
     .catch(err => console.error(err)); 
 });
 
-app.post("/chore", (req, res, next) => {
+app.post("/chores", (req, res, next) => {
   const newChore = {
     chore: req.body.chore,
     userSubmitted: req.body.userSubmitted,
@@ -48,7 +42,6 @@ app.post("/chore", (req, res, next) => {
     .collection("Chores")
     .add(newChore)
     .then(doc => {
-      // res.set('Access-Control-Allow-Origin', '*');
       res.json({ message: `document ${doc.id} created successfully` });
     })
     .catch(err => {
