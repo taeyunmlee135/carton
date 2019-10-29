@@ -17,6 +17,7 @@ class Navbar extends Component {
                     <Button component={Link} to='/'> Home </Button>
                     <Button component={Link} to='/chores'> Chores </Button> 
                     <Button component={Link} to='/login'> Login </Button>
+                    <Button component={Link} to='/signup'> Sign Up </Button>
  
                 </Toolbar>
             </AppBar>
