@@ -7,37 +7,48 @@ import Grid from '@material-ui/core/Grid';
 import Chore from '../components/Chore';
 import AddFab from '../components/AddFab';
 
-// fake chores
-import {item1, item2} from './fake.js';
 
 export class chores extends Component {
 
+    // save the chorse as a state
     state = {
         chores: null
     };
     
-    componentDidMount(){
-        axios.get('https://us-central1-carton-5d613.cloudfunctions.net/api/chores') // TODO: Change to not our api URL later 
+    /*fetchData(){
+        
+    }*/
+
+    componentWillMount(){
+        console.log(this.state.chores);
+        console.log("HITTT");
+        // TODO: Change to not our api URL later (make our API key private)
+        axios.get('https://us-central1-carton-5d613.cloudfunctions.net/api/chores') 
             .then(res => {
-                console.log(res.data)
+                console.log(res.data) // check to see that the data matches the ones in our firebase
                 this.setState({
-                    chores: res.data
+                    chores: res.data // set the chores to data fetched from API
                 })
             })
             .catch(err => console.log(err));
-    }
+    } 
+
+    /*componentDidUpdate(prevProps) {
+        console.log("UPDATE")
+        // Typical usage (don't forget to compare props):
+        if (this.props.state !== prevProps.state) {
+          this.fetchData();
+        }
+    }*/
 
 
     render(){
-        /*let recentChoresMarkup = this.state.chores ? (
-            this.state.chores.map(chore => <p>{chore.chore}</p>)
-        ) : <p>Loading...</p>*/
         let recentChoresMarkup = this.state.chores ?
-        ( this.state.chores.map(c => <Chore key={c.choreId} chore={c}/>))
-        : <p>Loading...</p>
+        ( this.state.chores.map(c => <Chore key={c.choreId} chore={c}/>)) // make a Chore component for each item
+        : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
 
         return (
-            <Grid container spacing={16}>
+            <Grid container spacing={2}>
                 <Grid item sm={8} xs={12}>
                     <p>Chores</p>
                     {recentChoresMarkup}
