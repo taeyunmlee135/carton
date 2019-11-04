@@ -12,6 +12,7 @@ import home from './pages/home';
 import chores from './pages/chores';
 import addChores from './pages/addChores';
 import login from './pages/login';
+import signup from './pages/signup';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,6 +42,8 @@ class App extends Component {
                     <Route exact path = '/chores' component = {chores} />
                     <Route exact path = '/addChores' component = {addChores} />
                     <Route exact path = '/login' component = {login} />
+                    <Route exact path = '/signup' component = {signup} />
+                    
                   </Switch>
                 </div>
               </Router>
