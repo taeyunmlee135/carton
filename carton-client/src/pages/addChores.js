@@ -14,17 +14,16 @@ export class addChores extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chore_name: "",
+            chore_name: "", // set initial states to empty strings
             userSubmitted: "", 
             userDo: "",
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.sleep = this.sleep.bind(this);
     }
 
     handleChange(event) {
-        const id = event.target.getAttribute("id");
+        const id = event.target.getAttribute("id"); // Depending on the id of the textfield, set state accordingly!
         switch(id){
             case "chore": 
                 this.setState({chore_name: event.target.value});
@@ -73,12 +72,12 @@ export class addChores extends Component {
                   <h1> Add Chores Page </h1>
                 <div className = "vertical">
                 <TextField
-                    id = "chore"
+                    id = "chore" /* make sure that we assign text field an id */
                     label="Chore"
                     margin="normal"
                     variant="filled"
-                    value={this.state.chore_name} 
-                    onChange={this.handleChange}
+                    value={this.state.chore_name} /* Value is what's at that state */
+                    onChange={this.handleChange} /* Call handle change every time it changes */
                 />
                 <TextField
                     id = "userSubmitted"
