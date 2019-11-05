@@ -17,30 +17,34 @@ export class signup extends Component {
             <div className = "container">
                   <h1> Signup Page </h1>
                 <div className = "vertical">
+                <form id="signup-form">
+                    <TextField
+                        label="Username"
+                        margin="normal"
+                        variant="filled"
+                    />
+                    <TextField
+                        label="Password"
+                        margin="normal"
+                        variant="filled"
+                    />
+                    <TextField 
+                        label="Reenter Password"
+                        margin="normal" 
+                        variant="filled"
+                    /> 
+                    <TextField 
+                        label="CartonID"
+                        margin="normal"
+                        variant="filled"
+                    />
+
+                    <SignUp /> {/*button for signup, currently links back to the home page*/}
+                </form>
                 
-                <TextField
-                    label="Username"
-                    margin="normal"
-                    variant="filled"
-                />
-                <TextField
-                    label="Password"
-                    margin="normal"
-                    variant="filled"
-                />
-                <TextField 
-                    label="Reenter Password"
-                    margin="normal" 
-                    variant="filled"
-                /> 
-                <TextField 
-                    label="CartonID"
-                    margin="normal"
-                    variant="filled"
-                />
                 {/* TODO: add a "remember me" feature */}
                 </div>
-                <SignUp /> {/*button for login, currently links back to the home page*/}
+                x
             </div>
         )
     }
