@@ -10,11 +10,15 @@ import AddFab from '../components/AddFab';
 
 export class chores extends Component {
 
-    // save the chorse as a state
-    state = {
-        chores: null
-    };
-    
+    constructor(props) {
+        super(props);
+        // save the chorse as a state
+        this.state = {
+            chores: null
+        };
+        //this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
     /*fetchData(){
         
     }*/
@@ -41,10 +45,24 @@ export class chores extends Component {
         }
     }*/
 
+    handleClick(choreId){
+        console.log("CLICKKKK");
+        // TODO: Change to not our api URL later (make our API key private)
+        axios.delete(`https://us-central1-carton-5d613.cloudfunctions.net/api/chores/${choreId}`)
+            .then(function(response) {
+                console.log(response);
+            })
+            .catch(function(error) {
+                console.log(error);
+        });
+    }
+      
 
     render(){
         let recentChoresMarkup = this.state.chores ?
-        ( this.state.chores.map(c => <Chore key={c.choreId} chore={c}/>)) // make a Chore component for each item
+        ( this.state.chores.map(c => <Chore 
+                            key={c.choreId} chore={c} ///>))
+                            onClick={this.handleClick(c.choreId)}/>)) // make a Chore component for each item
         : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
 
         return (

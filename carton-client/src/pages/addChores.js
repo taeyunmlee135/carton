@@ -38,10 +38,6 @@ export class addChores extends Component {
                 break;
         }
     }
-      
-    sleep = (milliseconds) => {
-        return new Promise(resolve => setTimeout(resolve, milliseconds))
-    }
 
     handleClick(){
         console.log("CLICKKKK");
@@ -62,7 +58,6 @@ export class addChores extends Component {
                 console.log(error);
         });
     }
-
     
 
     render(){
