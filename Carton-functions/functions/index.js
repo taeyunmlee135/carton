@@ -51,30 +51,27 @@ app.post("/chores", (req, res, next) => {
 });
 
 
-app.delete("/chores:choreId", (req, res, next) => {
+app.delete("/chores:choreId", (req, res, next) => { // Delete chore based on id 
   admin
     .firestore()
-    .doc(`/chores/${req.params.choreId}`);
-    document
-    .get()
+    .doc(`/chores/${req.params.choreId}`); 
+    document 
+    .get() // Get the doc first using the choreId 
     .then((doc) => {
-      if (!doc.exists) {
+      if (!doc.exists) { // Throw error if not there
         return res.status(404).json({ error: 'Chore not found' });
-      }
-      if (doc.data().userHandle !== req.user.handle) {
-        return res.status(403).json({ error: 'Unauthorized' });
       } else {
-        return document.delete();
+        return document.delete(); // Otherwise, delete it! TODO: Unauthorized deletion?
       }
     })
     .then(() => {
-      res.json({ message: 'Chore deleted successfully' });
+      res.json({ message: 'Chore deleted successfully' }); // Return json saying that it is done to client
     })
     .catch((err) => {
       console.error(err);
-      return res.status(500).json({ error: err.code });
+      return res.status(500).json({ error: err.code }); // Other wise return json with error to client
     });
 });
 
-exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
+exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.jsond
 
