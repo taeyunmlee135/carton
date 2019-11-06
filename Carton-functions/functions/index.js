@@ -51,4 +51,30 @@ app.post("/chores", (req, res, next) => {
 });
 
 
+app.delete("/chores:choreId", (req, res, next) => {
+  admin
+    .firestore()
+    .doc(`/chores/${req.params.choreId}`);
+    document
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: 'Chore not found' });
+      }
+      if (doc.data().userHandle !== req.user.handle) {
+        return res.status(403).json({ error: 'Unauthorized' });
+      } else {
+        return document.delete();
+      }
+    })
+    .then(() => {
+      res.json({ message: 'Chore deleted successfully' });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+});
+
 exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
+
