@@ -1,8 +1,9 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const serviceAccount = require('./../Carton-58c8fe6d0737.json')
 const app = require('express')();
 
-admin.initializeApp(); 
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount)}); 
 
 const config = {
   apiKey: "AIzaSyCntBiECLjGFAA5Z8ynh_mJUbBfXVNLkGw",
@@ -72,45 +73,30 @@ app.post('/signup', (req, res) => {
       password: req.body.password,
       reenterPassword: req.body.reenterPassword,
       cartonID: req.body.cartonID
-  }
+  };
 
-  let token, cartonID;
   db.doc(`/users/${newUser.email}`).get()
-    .then(doc => {
-      if(doc.exists) {
-        return res.status(400).json({ email: 'this email already has an account registered'})
+    .then(doc => { // returns snapshot even if doc doesn't exist
+      if(doc.exists) { // email already taken, return Bad Request
+        return res.status(400).json({ email: 'this email is already associated with an account'});
       }
-      else {
+      else { // valid email; create account 
         return firebase
-        .auth()
-        .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .auth()
+      .createUserWithEmailAndPassword(newUser.email, newUser.password);
       }
     })
-    .then(data => {
-      cartonID = data.user.cartonid;
-      return data.user.getIdToken();
+    .then(data => { // if we get here, user has been created
+      return data.user.getIdToken(); // return auth token to user so they can request more data
     })
-    .then((idToken) => {
-      token = idToken;
-      const userCredentials = {
-        email: newUser.email,
-        cartonID
-      };
-      return db.doc(`/users/${newUser.email}`).set(userCredentials)
-    })
-    .then(() => {
+    .then(token => {
       return res.status(201).json({ token });
     })
     .catch(err => {
       console.error(err);
-      if (err.code === 'auth/email-already-in-use') {
-        return res.status(400).json({ email: 'Email is already in use '});
-      }
-      else {
-        return res.status(500).json({ error: err.code });
-      }
-    })
-})
+      return res.status(500).json({ error: err.code});
+    });
+});
 
 
 exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
