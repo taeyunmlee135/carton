@@ -18,7 +18,7 @@ export class signup extends Component {
                   <h1> Signup Page </h1>
                 <div className = "vertical">
                     <TextField
-                        label="Username"
+                        label="Email"
                         margin="normal"
                         variant="filled"
                     />
@@ -26,12 +26,19 @@ export class signup extends Component {
                         label="Password"
                         margin="normal"
                         variant="filled"
+                        type="password"
                     />
                     <TextField 
                         label="Reenter Password"
                         margin="normal" 
                         variant="filled"
-                    /> 
+                        type="password"
+                    />
+                    <TextField
+                        label="Username"
+                        margin="normal"
+                        variant="filled"
+                    />
                     <TextField 
                         label="CartonID"
                         margin="normal"
