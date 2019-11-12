@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 
 // material UI stuff for field 
 // import FilledInput from '@material-ui/core/FilledInput';
@@ -42,25 +41,6 @@ export class addChores extends Component {
         }
     }
 
-    /*handleClick(){
-        console.log("CLICKKKK");
-        console.log(this.state.chore_name);
-        // TODO: Change to not our api URL later (make our API key private)
-        axios.post('https://us-central1-carton-5d613.cloudfunctions.net/api/chores',
-            {
-                chore: this.state.chore_name, // TODO: remember to throw error if not filled 
-                userSubmitted: this.state.userSubmitted,
-                userDo: this.state.userDo,
-                postedAt: this.state.postedAt
-            }) 
-            .then(function(response) {
-                this.sleep(300);
-                console.log(response);
-            })
-            .catch(function(error) {
-                console.log(error);
-        });
-    }*/
 
     handleClick(){
         const newChore = {
