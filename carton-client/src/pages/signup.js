@@ -17,7 +17,6 @@ export class signup extends Component {
             <div className = "container">
                   <h1> Signup Page </h1>
                 <div className = "vertical">
-                <form id="signup-form">
                     <TextField
                         label="Username"
                         margin="normal"
@@ -40,11 +39,9 @@ export class signup extends Component {
                     />
 
                     <SignUp /> {/*button for signup, currently links back to the home page*/}
-                </form>
                 
                 {/* TODO: add a "remember me" feature */}
                 </div>
-                x
             </div>
         )
     }
