@@ -179,11 +179,19 @@ app.post('/login', (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      return res.status(500).json({error: err.code});
+      if(err.code === 'auth/wrong-password') {
+        return res.status(403).json({ general: 'Wrong credentials, please try again'});
+      }
+      else {
+        return res.status(500).json({error: err.code});
+      }
+      
     })
 })
 
-// TODO: create carton functionality
+// TODO: create new carton functionality
+
+// TODO: authentication middleware (?)
 
 
 exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
