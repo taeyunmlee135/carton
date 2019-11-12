@@ -10,6 +10,9 @@ import axios from 'axios';
 import SubmitChore from '../components/SubmitChore';
 import TextField from '@material-ui/core/TextField';
 
+// firebase 
+import db from '../firebase'
+
 export class addChores extends Component {
     constructor(props) {
         super(props);
@@ -39,7 +42,7 @@ export class addChores extends Component {
         }
     }
 
-    handleClick(){
+    /*handleClick(){
         console.log("CLICKKKK");
         console.log(this.state.chore_name);
         // TODO: Change to not our api URL later (make our API key private)
@@ -56,6 +59,23 @@ export class addChores extends Component {
             })
             .catch(function(error) {
                 console.log(error);
+        });
+    }*/
+
+    handleClick(){
+        const newChore = {
+            chore: this.state.chore_name,
+            userSubmitted: this.state.userSubmitted,
+            userDo: this.state.userDo,
+            postedAt: new Date().toISOString()
+        };
+        
+        db.collection("Chores").add(newChore)
+        .then(doc => {
+            console.log(`Document ${doc.id} created successfully`);
+        })
+        .catch(err => {
+            console.error(err);
         });
     }
     
