@@ -23,6 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # Firebase Configurations
-src/firebase.js
 database.rules.json
 fire*
+
+# api keys
+.env
