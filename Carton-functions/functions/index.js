@@ -65,6 +65,18 @@ app.post("/chores", (req, res, next) => {
     });
 });
 
+// helper function to determine if str is empty (no non whitespace chars)
+const isEmpty = (string) => { 
+  if(string.trim() == '') return true;
+  else return false;
+}
+
+// helper function to determine if email is valid email
+const isEmail = (email) => {
+  const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(email.match(regEx)) return true;
+  else return false; 
+}
 
 // Signup route 
 app.post('/signup', (req, res) => {
@@ -75,6 +87,30 @@ app.post('/signup', (req, res) => {
       username: req.body.username,
       cartonID: req.body.cartonID
   };
+
+  // validate data 
+  let errors = {}; // init empty errors object
+
+  // validate email address 
+  if(isEmpty(newUser.email)) {
+    errors.email = 'Must not be empty' 
+  }
+  else if (!isEmail(newUser.email)) {
+    errors.email = 'Must be a valid email address'
+  }
+
+  // validate password 
+  if(isEmpty(newUser.password)) errors.password = 'Must not be empty';
+  if(newUser.password !== newUser.reenterPassword) errors.reenterPassword = 'Passwords must match';
+
+  // validate username and cartonID
+  if(isEmpty(newUser.username)) errors.username = 'Must not be empty';
+  if(isEmpty(newUser.cartonID)) errors.cartonID = 'Must not be empty'
+
+
+  // if any keys populated in errors object, bad request
+  if(Object.keys(errors).length > 0) return res.status(400).json(errors);
+
 
   let token, userId;
   db.doc(`/users/${newUser.username}`).get()
@@ -111,12 +147,43 @@ app.post('/signup', (req, res) => {
       if (err.code === 'auth/email-already-in-use') {
         return res.status(400).json({ email: 'Email is already in use'});
       }
+      else if (err.code === 'auth/weak-password') {
+        return res.status(400).json({ password: 'Password is too weak'});
+      }
       else {
         return res.status(500).json({ error: err.code});
       }
       
     });
 });
+
+app.post('/login', (req, res) => {
+  const user = {
+    email: req.body.email,
+    password: req.body.password
+  };
+
+  let errors = {};
+
+  if(isEmpty(user.email)) errors.email = 'Must not be empty';
+  if(isEmpty(user.password)) errors.password = 'Must not be empty';
+
+  if(Object.keys(errors).lenth > 0) return res.status(400).json(errors);
+
+  firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+    .then(data => {
+      return data.user.getIdToken();
+    })
+    .then(token => {
+      return res.json({token});
+    })
+    .catch(err => {
+      console.error(err);
+      return res.status(500).json({error: err.code});
+    })
+})
+
+// TODO: create carton functionality
 
 
 exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
