@@ -43,12 +43,14 @@ export class chores extends Component {
     } 
     
 
-    handleDelete(event){
-        const id = event.target.value;
-        db.collection("Chores").doc(id).delete()
+    handleDelete(event){ 
+        const id = event.target.value; // get the id of the chore based on the target 
+        db.collection("Chores").doc(id).delete() // delete the chore based on id
         .then(() => {
                 console.log(`Document ${id} deleted successfully`); 
-                this.setState({
+
+                // re-render state by filtering our the chore that has the id we are deleting
+                this.setState({ 
                     chores: this.state.chores.filter(function(value){
                         return value["choreId"] !== id;
                      })
@@ -56,7 +58,7 @@ export class chores extends Component {
             }
         )
         .catch(function(error) {
-            console.error("Error removing document: ", error);
+            console.error("Error removing document: ", error); // throw error if there was error
         });
     }
 
