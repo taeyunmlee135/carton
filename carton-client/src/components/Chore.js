@@ -10,6 +10,9 @@ import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 //import CardMedia from '@material-ui/core/CardMedia'; 
 
+// Link 
+import Link from 'react-router-dom/Link';
+
 const styles = {
     card: {
         display: 'flex'
@@ -35,13 +38,16 @@ class Chore extends Component {
                 <CardActions>
                     <button 
                         value = {id}
-                        onClick = {this.props.onClick}//() => this.props.onClick()}
+                        onClick = {this.props.onDeleteClick}
                     >
                     Delete
                     </button>
-                    <Button size="small" >
-                    Edit 
-                    </Button>
+                    <button component={Link} to='/editChores'
+                        value = {id}
+                        onClick = {this.props.onEditClick}
+                    >
+                    Edit
+                    </button>
                 </CardActions>
             </Card>
         )

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -9,7 +8,6 @@ import AddFab from '../components/AddFab';
 
 // firebase 
 import db from '../firebase'
-import { DEFAULT_ECDH_CURVE } from 'tls';
 
 export class chores extends Component {
 
@@ -19,8 +17,8 @@ export class chores extends Component {
         this.state = {
             chores: null
         };
-        //this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     componentWillMount(){
@@ -36,26 +34,23 @@ export class chores extends Component {
             postedAt: doc.data().postedAt
             });
         });
-        console.log(chores)
         // set the state using the chores that we got 
         this.setState({
             chores: chores
         });
-        console.log(this.state.chores)
         }) 
         .catch(err => console.error(err)); 
     } 
     
 
-    handleClick(event){
-        console.log("hit")
+    handleDelete(event){
         const id = event.target.value;
         db.collection("Chores").doc(id).delete()
         .then(() => {
                 console.log(`Document ${id} deleted successfully`); 
                 this.setState({
                     chores: this.state.chores.filter(function(value){
-                        return value["choreId"] != id;
+                        return value["choreId"] !== id;
                      })
                 })
             }
@@ -65,38 +60,44 @@ export class chores extends Component {
         });
     }
 
-    /*async getChores() {
-        const snapshot = await db.collection('Chores').get()
-        .then(data => {
-        let chores = [];
-        data.forEach(doc => {
-            chores.push({
-            choreId: doc.id,
-            chore: doc.data().chore,
-            userSubmitted: doc.data().userSubmitted,
-            userDo: doc.data().userDo,
-            postedAt: doc.data().postedAt
-            });
-        });   
-        const documents = [];
-        snapshot.forEach(ddoc => {
-            chores.push({
-            choreId: doc.id,
-            chore: doc.data().chore,
-            userSubmitted: doc.data().userSubmitted,
-            userDo: doc.data().userDo,
-            postedAt: doc.data().postedAt
-            });
+    handleEdit(event){
+        const id = event.target.value;
+        console.log(id)
+        const newChore = {
+            choreId: id,
+            chore: "test",
+            userSubmitted: "test",
+            userDo: "test",
+            postedAt: new Date().toISOString()
+        };
+
+        db.collection("Chores").doc(id).set(newChore)
+        .then(() => {
+                console.log(`Document ${id} editted successfully`); 
+
+                let newChoreList = []
+                this.state.chores.forEach(item => {
+                    if (item["choreId"] !== id) newChoreList.push(item); 
+                    else newChoreList.push(newChore);
+                 })
+
+                this.setState({
+                    chores: newChoreList
+                })
+            }
+        )
+        .catch(function(error) {
+            console.error("Error editing document: ", error);
         });
-        return documents;
-        }*/
+    }
 
     render(){
 
         let recentChoresMarkup = this.state.chores ?
         ( this.state.chores.map(c => <Chore 
                             key={c.choreId} id= {c.choreId} chore={c} ///>))
-                            onClick={this.handleClick}/>)) // make a Chore component for each item
+                            onDeleteClick={this.handleDelete}
+                            onEditClick={this.handleEdit}/>)) // make a Chore component for each item
         : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
 
         return (
@@ -110,15 +111,6 @@ export class chores extends Component {
                 </Grid>
                 <AddFab />
             </Grid>
-            /*
-            <div className = "container">
-                  <h1> Chores Page </h1>
-                  <Chore chore={item1}/>
-                  <Chore chore={item2}/>
-
-                <AddFab />
-
-            </div>*/
         )
     }
 
