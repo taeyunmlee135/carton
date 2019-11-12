@@ -21,7 +21,7 @@ class Chore extends Component {
 
     render(){
         // These are the variables (properties) needed for a Chore `component (rendered at bottom)
-        const { classes, chore: {chore, userSubmitted, userDo} } = this.props
+        const { id, chore: {chore, userSubmitted, userDo} } = this.props
     
         return(
             <Card>
@@ -33,11 +33,12 @@ class Chore extends Component {
                     </CardContent>
                 </CardActionArea> 
                 <CardActions>
-                    <Button size="small" 
-                        onClick = {console.log("hi")}
+                    <button 
+                        value = {id}
+                        onClick = {this.props.onClick}//() => this.props.onClick()}
                     >
                     Delete
-                    </Button>
+                    </button>
                     <Button size="small" >
                     Edit 
                     </Button>
@@ -47,6 +48,11 @@ class Chore extends Component {
     }
 
 }
-
+{/* <Button size="small" 
+                        value = {id}
+                        onClick = {this.props.onClick}//() => this.props.onClick()}
+                    >
+                    Delete
+                    </Button> */}
 
 export default withStyles(styles)(Chore)
