@@ -72,29 +72,49 @@ app.post('/signup', (req, res) => {
       email: req.body.email,
       password: req.body.password,
       reenterPassword: req.body.reenterPassword,
+      username: req.body.username,
       cartonID: req.body.cartonID
   };
 
-  db.doc(`/users/${newUser.email}`).get()
+  let token, userId;
+  db.doc(`/users/${newUser.username}`).get()
     .then(doc => { // returns snapshot even if doc doesn't exist
-      if(doc.exists) { // email already taken, return Bad Request
-        return res.status(400).json({ email: 'this email is already associated with an account'});
+      if(doc.exists) { // username already taken, return Bad Request
+        return res.status(400).json({ username: 'this username is already taken'});
       }
-      else { // valid email; create account 
+      else { // valid username; create account 
         return firebase
       .auth()
       .createUserWithEmailAndPassword(newUser.email, newUser.password);
       }
     })
-    .then(data => { // if we get here, user has been created
+    .then((data) => { // if we get here, user has been created
+      userId = data.user.uid;
       return data.user.getIdToken(); // return auth token to user so they can request more data
     })
-    .then(token => {
+    .then((idToken) => {
+      token = idToken;
+      const userCredentials = {
+        email: newUser.email,
+        username: newUser.username,
+        cartonID: newUser.cartonID,
+        userId
+      };
+      // create document for new user in users collection w/ username as doc id 
+      db.doc(`/users/${newUser.username}`).set(userCredentials); 
+    })
+    .then(() => {
       return res.status(201).json({ token });
     })
     .catch(err => {
       console.error(err);
-      return res.status(500).json({ error: err.code});
+      if (err.code === 'auth/email-already-in-use') {
+        return res.status(400).json({ email: 'Email is already in use'});
+      }
+      else {
+        return res.status(500).json({ error: err.code});
+      }
+      
     });
 });
 
