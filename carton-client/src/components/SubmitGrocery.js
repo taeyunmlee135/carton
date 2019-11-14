@@ -4,15 +4,15 @@ import Link from 'react-router-dom/Link';
 
 import { Fab } from '@material-ui/core';
 
-class SubmitChore extends Component {
+class SubmitGrocery extends Component {
     
     render(){
         return (
             <div>
                 <Fab onClick = {() => this.props.onClick()}
-                    component={Link} to='/chores'
+                    component={Link} to='/groceries'
                     > 
-                    Submit Chore
+                    Add To List
                     </Fab>
             </div>
         )
@@ -21,4 +21,4 @@ class SubmitChore extends Component {
 
 }
 
-export default SubmitChore
+export default SubmitGrocery
