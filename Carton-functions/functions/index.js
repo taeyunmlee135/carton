@@ -51,7 +51,9 @@ app.post("/chores", (req, res, next) => {
     });
 });
 
-// Google Calendar API stuff
+// Google Calendar API
+
+//supposed to return the JSON object that was present in credentials.json
 function getCredentials() {
   return {"web":{"client_id":"499457247630-7gmg3e4if4af690nt1klo3h66sfbsasd.apps.googleusercontent.com",
   "project_id":"carton-5d613",
@@ -60,10 +62,11 @@ function getCredentials() {
   "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
   "client_secret":"ib0T1NL7uSKjY4LnFKJZn336",
   "javascript_origins":["https://us-central1-carton-5d613.cloudfunctions.net"]}}
-  //Replace this empty object with credentials.json contents
 }
-const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/calendar.events'];
 
+//calls getCredentials function to read the parameters it needs to create the oAuth2Client
+//uses the oAuth2Client to generate the authorization URL
 exports.authorize = functions.https.onRequest((request, response) => {
     console.log('Authorize called')
 
@@ -73,7 +76,7 @@ exports.authorize = functions.https.onRequest((request, response) => {
 
     const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0])
     let url = oAuth2Client.generateAuthUrl({
-        access_type: 'offline',
+        access_type: 'offline', //lets us fetch data from the Google Calendar API even when the user is not online
         scope: SCOPES,
     })
     response.send(url)
