@@ -23,6 +23,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+// const firebase = require('firebase');
 
 const styles = { // according to classNames
     form: {
@@ -79,16 +80,26 @@ class login extends Component {
             email: this.state.email,
             password: this.state.password
         };
+        console.log(userData.email);
+        // firebase
+        //     .auth()
+        //     .signInWithEmailAndPassword(userData.email, userData.password)
+        //     .catch(function(error) {
+        //         // Handle Errors here.
+        //         var errorCode = error.code;
+        //         var errorMessage = error.message;
+        //         // ...
+        //     });
         axios
-            .post('/login', userData)
-            .then((res) => { // to get here, must be successful, so redirect 
+            .post('https://us-central1-carton-5d613.cloudfunctions.net/api/login', userData)
+            .then(res => { // to get here, must be successful, so redirect 
                 console.log(res.data); 
                 this.setState({
                     loading: false
                 });
                 this.props.history.push('/'); // to home page
             })
-            .catch((err) => {
+            .catch(err => {
                 this.setState({
                     errors: err.response.data,
                     loading: false
