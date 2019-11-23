@@ -25,35 +25,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // const firebase = require('firebase');
 
-const styles = { // according to classNames
-    form: {
-        textAlign: 'center'
-    },
-    image: {
-        margin: '10px auto 8px auto',
-        borderRadius: '20px'
-    },
-    pageTitle: {
-        margin: '20px auto 20px auto'
-    },
-    textField: {
-        margin: '10px auto 10px auto'
-    },
-    button: {
-        marginTop: 20,
-        marginBottom: 5,
-        position: 'relative'
-    },
-    customError: {
-        color:'red',
-        fontSize: '0.8rem',
-        marginTop: 10
-    },
-    progress: {
-        position: 'absolute'
-
-    }
-};
+const styles = (theme) => ({
+    ...theme.spreadtoLoginSignup // "spread" the theme so everything in it can be accessed
+});
 
 
 class login extends Component {
@@ -81,19 +55,13 @@ class login extends Component {
             password: this.state.password
         };
         console.log(userData.email);
-        // firebase
-        //     .auth()
-        //     .signInWithEmailAndPassword(userData.email, userData.password)
-        //     .catch(function(error) {
-        //         // Handle Errors here.
-        //         var errorCode = error.code;
-        //         var errorMessage = error.message;
-        //         // ...
-        //     });
+        
         axios
             .post('https://us-central1-carton-5d613.cloudfunctions.net/api/login', userData)
             .then((res) => { // to get here, must be successful, so redirect 
                 console.log(res.data); 
+                // save token locally in case browser refreshes
+                localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`); 
                 this.setState({
                     loading: false
                 });
@@ -150,6 +118,7 @@ class login extends Component {
                             onChange={this.handleChange} 
                             fullWidth
                         /> 
+
                         {errors.general && (
                             <Typography variant="body2" className={classes.customError}>
                                 {errors.general}
