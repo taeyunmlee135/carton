@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
-import Login from '../components/Login';
 
 // Material UI Stuff 
 import Grid from '@material-ui/core/Grid';
@@ -23,7 +22,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-// const firebase = require('firebase');
 
 const styles = (theme) => ({
     ...theme.spreadtoLoginSignup // "spread" the theme so everything in it can be accessed
@@ -95,9 +93,9 @@ class signup extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/> 
                 <Grid item sm> 
-                    <img src={AppIcon} alt="carton logo" width='250' className={classes.image} /> 
-                    <Typography variant="h3" className={classes.pageTitle}>
-                        Signup
+                    <img src={AppIcon} alt="carton logo" width='200' className={classes.image} /> 
+                    <Typography variant="h4" className={classes.pageTitle}>
+                        signup
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField 

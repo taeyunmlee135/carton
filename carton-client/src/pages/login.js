@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
-import Login from '../components/Login';
 
 // Material UI Stuff 
 import Grid from '@material-ui/core/Grid';
@@ -89,9 +88,9 @@ class login extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/> 
                 <Grid item sm> 
-                    <img src={AppIcon} alt="carton logo" width='250' className={classes.image} /> 
-                    <Typography variant="h3" className={classes.pageTitle}>
-                        Login
+                    <img src={AppIcon} alt="carton logo" width='200' className={classes.image} /> 
+                    <Typography variant="h4" className={classes.pageTitle}>
+                        login
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
                         <TextField 
@@ -131,7 +130,7 @@ class login extends Component {
                             className={classes.button} 
                             disabled={loading} // button is disabled while loading
                         >
-                        Login
+                        login
                         {loading && ( // if loading is true, return CircularProgress comp
                             <CircularProgress size={30} className={classes.progress} /> 
                         )}
