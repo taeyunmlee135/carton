@@ -13,7 +13,7 @@ const isEmpty = (string) => {
   };
 
   exports.validateSignupData = (data) => {
-      // validate data 
+    // validate data 
     let errors = {}; // init empty errors object
   
     // validate email address 

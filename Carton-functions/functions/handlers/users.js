@@ -87,6 +87,9 @@ exports.signup = (req, res) => {
         if(err.code === 'auth/wrong-password') {
           return res.status(403).json({ general: 'Wrong credentials, please try again'});
         }
+        else if (err.code === 'auth/user-not-found') {
+          return res.status(403).json({ general: 'Email not registered, please try again'});
+        }
         else {
           return res.status(500).json({error: err.code});
         }

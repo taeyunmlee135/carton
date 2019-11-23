@@ -4,16 +4,31 @@ const app = require('express')();
 
 const { signup, login } = require('./handlers/users');
 
-// users routes
-app.post('/signup', signup);
-app.post('/login', login);
-
-
 // import cors, required because server and client are separated (allows external access from client)
-const cors = require('cors');
-app.use(cors({origin: true}));
+// const cors = require('cors');
+// app.use(cors({origin: true}));
 
-app.get("/chores", (req, res, next) => {
+const cors = require('cors');
+const corsOptions = {
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
+// users routes
+app.post('/signup', cors(corsOptions), signup);
+app.post('/login', cors(corsOptions), login);
+
+
+
+
+
+
+
+app.get("/chores", cors(corsOptions), (req, res, next) => {
   db
     .collection("Chores")
     .orderBy("postedAt", "desc") 
@@ -34,7 +49,7 @@ app.get("/chores", (req, res, next) => {
     .catch(err => console.error(err)); 
 });
 
-app.post("/chores", (req, res, next) => {
+app.post("/chores", cors(corsOptions), (req, res, next) => {
   const newChore = {
     chore: req.body.chore,
     userSubmitted: req.body.userSubmitted,
