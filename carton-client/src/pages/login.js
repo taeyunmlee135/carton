@@ -92,14 +92,15 @@ class login extends Component {
         //     });
         axios
             .post('https://us-central1-carton-5d613.cloudfunctions.net/api/login', userData)
-            .then(res => { // to get here, must be successful, so redirect 
+            .then((res) => { // to get here, must be successful, so redirect 
                 console.log(res.data); 
                 this.setState({
                     loading: false
                 });
                 this.props.history.push('/'); // to home page
             })
-            .catch(err => {
+            .catch((err) => {
+                console.log(err);
                 this.setState({
                     errors: err.response.data,
                     loading: false
