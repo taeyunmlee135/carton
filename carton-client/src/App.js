@@ -15,6 +15,7 @@ import AuthRoute from './util/AuthRoute';
 import home from './pages/home';
 import chores from './pages/chores';
 import addChores from './pages/addChores';
+import myCarton from './pages/myCarton';
 import login from './pages/login';
 import signup from './pages/signup';
 
@@ -46,11 +47,12 @@ class App extends Component {
         <MuiThemeProvider theme={theme}>
           <div className="App">
               <Router>
-                <Navbar/>
+                <Navbar authenticated={authenticated}/>
                 <div className = "container">
                   <Switch>
                     <Route exact path = '/' component = {home} />
                     <Route exact path = '/chores' component = {chores} />
+                    <Route exact path = '/mycarton' component = {myCarton} />
                     <Route exact path = '/addChores' component = {addChores} />
 
                     {/* if authenticated, login and signup will just redirect to homepage */}
