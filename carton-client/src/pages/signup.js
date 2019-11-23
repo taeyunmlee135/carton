@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 // Material UI Stuff 
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 // import Card from '@material-ui/core/Card';
 // import CardContent from '@material-ui/core/CardContent'; 
 // import CardMedia from '@material-ui/core/CardMedia';
@@ -98,6 +99,8 @@ class signup extends Component {
                         signup
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
+
+                        <Container maxWidth>
                         <TextField 
                             id="email"
                             name="email" 
@@ -110,6 +113,9 @@ class signup extends Component {
                             onChange={this.handleChange} 
                             fullWidth
                         /> 
+                        </Container>
+                        
+                        <Container maxWidth>
                         <TextField 
                             id="password" 
                             name="password" 
@@ -122,6 +128,10 @@ class signup extends Component {
                             onChange={this.handleChange} 
                             fullWidth
                         /> 
+                        </Container> 
+
+
+                        <Container maxWidth>
                         <TextField 
                             id="reenterPassword" 
                             name="reenterPassword" 
@@ -134,6 +144,10 @@ class signup extends Component {
                             onChange={this.handleChange} 
                             fullWidth
                         /> 
+                        </Container> 
+
+
+                        <Container maxWidth>
                         <TextField 
                             id="username" 
                             name="username" 
@@ -146,6 +160,10 @@ class signup extends Component {
                             onChange={this.handleChange} 
                             fullWidth
                         /> 
+                        </Container> 
+
+
+                        <Container maxWidth>
                         <TextField 
                             id="cartonID" 
                             name="cartonID" 
@@ -158,6 +176,9 @@ class signup extends Component {
                             onChange={this.handleChange} 
                             fullWidth
                         /> 
+                        </Container> 
+
+
                         {errors.general && (
                             <Typography variant="body2" className={classes.customError}>
                                 {errors.general}
