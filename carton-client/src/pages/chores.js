@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -7,44 +6,100 @@ import Grid from '@material-ui/core/Grid';
 import Chore from '../components/Chore';
 import AddFab from '../components/AddFab';
 
+// firebase 
+import db from '../firebase'
 
 export class chores extends Component {
 
-    // save the chorse as a state
-    state = {
-        chores: null
-    };
-    
-    /*fetchData(){
-        
-    }*/
+    constructor(props) {
+        super(props);
+        // save the chorse as a state
+        this.state = {
+            chores: null
+        };
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this);
+    }
 
     componentWillMount(){
-        console.log(this.state.chores);
-        console.log("HITTT");
-        // TODO: Change to not our api URL later (make our API key private)
-        axios.get('https://us-central1-carton-5d613.cloudfunctions.net/api/chores') 
-            .then(res => {
-                console.log(res.data) // check to see that the data matches the ones in our firebase
-                this.setState({
-                    chores: res.data // set the chores to data fetched from API
-                })
-            })
-            .catch(err => console.log(err));
+        db.collection('Chores').orderBy("postedAt", "desc").get()
+        .then(data => {
+        let chores = [];
+        data.forEach(doc => {
+            chores.push({
+            choreId: doc.id,
+            chore: doc.data().chore,
+            userSubmitted: doc.data().userSubmitted,
+            userDo: doc.data().userDo,
+            postedAt: doc.data().postedAt
+            });
+        });
+        // set the state using the chores that we got 
+        this.setState({
+            chores: chores
+        });
+        }) 
+        .catch(err => console.error(err)); 
     } 
+    
 
-    /*componentDidUpdate(prevProps) {
-        console.log("UPDATE")
-        // Typical usage (don't forget to compare props):
-        if (this.props.state !== prevProps.state) {
-          this.fetchData();
-        }
-    }*/
+    handleDelete(event){ 
+        const id = event.target.value; // get the id of the chore based on the target 
+        db.collection("Chores").doc(id).delete() // delete the chore based on id
+        .then(() => {
+                console.log(`Document ${id} deleted successfully`); 
 
+                // re-render state by filtering our the chore that has the id we are deleting
+                this.setState({ 
+                    chores: this.state.chores.filter(function(value){
+                        return value["choreId"] !== id;
+                     })
+                })
+            }
+        )
+        .catch(function(error) {
+            console.error("Error removing document: ", error); // throw error if there was error
+        });
+    }
+
+    handleEdit(event){
+        const id = event.target.value;
+        console.log(id)
+        const newChore = {
+            choreId: id,
+            chore: "test",
+            userSubmitted: "test",
+            userDo: "test",
+            postedAt: new Date().toISOString()
+        };
+
+        db.collection("Chores").doc(id).set(newChore)
+        .then(() => {
+                console.log(`Document ${id} editted successfully`); 
+
+                let newChoreList = []
+                this.state.chores.forEach(item => {
+                    if (item["choreId"] !== id) newChoreList.push(item); 
+                    else newChoreList.push(newChore);
+                 })
+
+                this.setState({
+                    chores: newChoreList
+                })
+            }
+        )
+        .catch(function(error) {
+            console.error("Error editing document: ", error);
+        });
+    }
 
     render(){
+
         let recentChoresMarkup = this.state.chores ?
-        ( this.state.chores.map(c => <Chore key={c.choreId} chore={c}/>)) // make a Chore component for each item
+        ( this.state.chores.map(c => <Chore 
+                            key={c.choreId} id= {c.choreId} chore={c} ///>))
+                            onDeleteClick={this.handleDelete}
+                            onEditClick={this.handleEdit}/>)) // make a Chore component for each item
         : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
 
         return (
@@ -58,15 +113,6 @@ export class chores extends Component {
                 </Grid>
                 <AddFab />
             </Grid>
-            /*
-            <div className = "container">
-                  <h1> Chores Page </h1>
-                  <Chore chore={item1}/>
-                  <Chore chore={item2}/>
-
-                <AddFab />
-
-            </div>*/
         )
     }
 
