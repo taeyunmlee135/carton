@@ -19,20 +19,19 @@ const styles = {
     }
 }
 
-// This is our component that will render a chore
-class Chore extends Component { 
+// This is our component that will render a grocery list item
+class Grocery extends Component { 
 
     render(){
-        // These are the variables (properties) needed for a Chore `component (rendered at bottom)
-        const { id, chore: {chore, userSubmitted, userDo} } = this.props
+        // These are the variables (properties) needed for a Grocery`component (rendered at bottom)
+        const { id, grocery: {item, quantity} } = this.props
     
         return(
             <Card>
                 <CardActionArea>
                     <CardContent>
-                        <Typography variant="h5">{chore}</Typography>
-                        <Typography variant="h5">{userSubmitted}</Typography>
-                        <Typography variant="h5">{userDo}</Typography>
+                        <Typography variant="h5">{item}</Typography>
+                        <Typography variant="h5">{quantity}</Typography>
                     </CardContent>
                 </CardActionArea> 
                 <CardActions>
@@ -41,12 +40,6 @@ class Chore extends Component {
                         onClick = {this.props.onDeleteClick}
                     >
                     Delete
-                    </button>
-                    <button component={Link} to='/editChores'
-                        value = {id}
-                        onClick = {this.props.onEditClick}
-                    >
-                    Edit
                     </button>
                 </CardActions>
             </Card>
@@ -61,4 +54,4 @@ class Chore extends Component {
                     Delete
                     </Button> */}
 
-export default withStyles(styles)(Chore)
+export default withStyles(styles)(Grocery)

@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 // firebase 
 import db from '../firebase'
 
-export class addChores extends Component {
+export class editChore extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,7 +41,6 @@ export class addChores extends Component {
         }
     }
 
-
     handleClick(){
         const newChore = {
             chore: this.state.chore_name,
@@ -64,7 +63,7 @@ export class addChores extends Component {
 
         return (
             <div className = "container">
-                  <h1> Add Chores Page </h1>
+                  <h1> Edit Chores Page </h1>
                 <div className = "vertical">
                 <TextField
                     id = "chore" /* make sure that we assign text field an id */
@@ -99,5 +98,5 @@ export class addChores extends Component {
 
 }
 
-export default addChores 
+export default editChore 
 

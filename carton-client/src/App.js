@@ -17,6 +17,8 @@ import chores from './pages/chores';
 import addChores from './pages/addChores';
 import login from './pages/login';
 import signup from './pages/signup';
+import groceries from './pages/groceries';
+import addGroceries from './pages/addGroceries';
 
 const theme = createMuiTheme(themeFile);
 
@@ -60,6 +62,9 @@ class App extends Component {
                     {/* without already-authenticated -> redirect check
                     <Route exact path = '/login' component = {login} />
                     <Route exact path = '/signup' component = {signup} /> */}
+                    <Route exact path = '/signup' component = {signup} />
+                    <Route exact path = '/groceries' component = {groceries} />
+                    <Route exact path = '/addGroceries' component = {addGroceries} />
                     
                   </Switch>
                 </div>
