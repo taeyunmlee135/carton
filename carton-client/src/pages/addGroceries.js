@@ -6,19 +6,18 @@ import React, {Component} from 'react';
 // import FormHelperText from '@material-ui/core/FormHelperText';
 // import Input from '@material-ui/core/Input';
 // import InputLabel from '@material-ui/core/InputLabel';
-import SubmitChore from '../components/SubmitChore';
+import SubmitGrocery from '../components/SubmitGrocery';
 import TextField from '@material-ui/core/TextField';
 
 // firebase 
 import db from '../firebase'
 
-export class addChores extends Component {
+export class addGroceries extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            chore_name: "", // set initial states to empty strings
-            userSubmitted: "", 
-            userDo: "",
+            item: "", // set initial states to empty strings
+            quantity: "", 
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -27,14 +26,11 @@ export class addChores extends Component {
     handleChange(event) {
         const id = event.target.getAttribute("id"); // Depending on the id of the textfield, set state accordingly!
         switch(id){
-            case "chore": 
-                this.setState({chore_name: event.target.value});
+            case "item": 
+                this.setState({item: event.target.value});
                 break;
-            case "userSubmitted":
-                this.setState({userSubmitted: event.target.value});
-                break;
-            case "userDo":
-                this.setState({userDo: event.target.value});
+            case "quantity":
+                this.setState({quantity: event.target.value});
                 break;
             default:
                 break;
@@ -43,14 +39,13 @@ export class addChores extends Component {
 
 
     handleClick(){
-        const newChore = {
-            chore: this.state.chore_name,
-            userSubmitted: this.state.userSubmitted,
-            userDo: this.state.userDo,
+        const newGrocery = {
+            item: this.state.item,
+            quantity: this.state.quantity,
             postedAt: new Date().toISOString()
         };
         
-        db.collection("Chores").add(newChore)
+        db.collection("groceries").add(newGrocery)
         .then(doc => {
             console.log(`Document ${doc.id} created successfully`);
         })
@@ -64,34 +59,26 @@ export class addChores extends Component {
 
         return (
             <div className = "container">
-                  <h1> Add Chores Page </h1>
+                  <h1> Add a Grocery List Item</h1>
                 <div className = "vertical">
                 <TextField
-                    id = "chore" /* make sure that we assign text field an id */
-                    label="Chore"
+                    id = "item" /* make sure that we assign text field an id */
+                    label="Grocery Item"
                     margin="normal"
                     variant="filled"
-                    value={this.state.chore_name} /* Value is what's at that state */
+                    value={this.state.item} /* Value is what's at that state */
                     onChange={this.handleChange} /* Call handle change every time it changes */
                 />
                 <TextField
-                    id = "userSubmitted"
-                    label="Submitting User"
+                    id = "quantity"
+                    label="Quantity"
                     margin="normal"
                     variant="filled"
-                    value={this.state.userSubmitted} 
-                    onChange={this.handleChange}
-                />
-                <TextField
-                    id = "userDo"
-                    label="Do User"
-                    margin="normal"
-                    variant="filled"
-                    value={this.state.userDo} 
+                    value={this.state.quantity} 
                     onChange={this.handleChange}
                 />
                 </div>
-                <SubmitChore onClick={this.handleClick} />
+                <SubmitGrocery onClick={this.handleClick} />
             </div>
         )
     }
@@ -99,5 +86,5 @@ export class addChores extends Component {
 
 }
 
-export default addChores 
+export default addGroceries
 
