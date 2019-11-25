@@ -103,8 +103,8 @@ export class chores extends Component {
         : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
 
         return (
-            <Grid container spacing={2}>
-                <Grid item sm={8} xs={12}>
+            <Grid>
+                <Grid item sm={6} xs={6}>
                     <p>Chores</p>
                     {recentChoresMarkup}
                 </Grid>
