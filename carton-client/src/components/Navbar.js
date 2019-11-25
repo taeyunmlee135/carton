@@ -20,6 +20,7 @@ class Navbar extends Component {
 
                         <Button component={Link} to='/'> Home </Button>
                         <Button component={Link} to='/chores'> Chores </Button> 
+                        <Button component={Link} to='/groceries'> Grocery List </Button>
                         <Button component={Link} to='/myCarton'> my carton </Button>
                         
 

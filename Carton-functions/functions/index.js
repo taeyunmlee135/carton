@@ -69,10 +69,27 @@ app.post("/chores", cors(corsOptions), (req, res, next) => {
 });
 
 
+app.delete("/chores:choreId", (req, res, next) => { // Delete chore based on id 
+  admin
+    .firestore()
+    .doc(`/chores/${req.params.choreId}`); 
+    document 
+    .get() // Get the doc first using the choreId 
+    .then((doc) => {
+      if (!doc.exists) { // Throw error if not there
+        return res.status(404).json({ error: 'Chore not found' });
+      } else {
+        return document.delete(); // Otherwise, delete it! TODO: Unauthorized deletion?
+      }
+    })
+    .then(() => {
+      res.json({ message: 'Chore deleted successfully' }); // Return json saying that it is done to client
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code }); // Other wise return json with error to client
+    });
+});
 
-// TODO: create new carton functionality
+exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.jsond
 
-// TODO: authentication middleware (?)
-
-
-exports.api = functions.region('us-central1').https.onRequest(app); // name must match with firebase.json
