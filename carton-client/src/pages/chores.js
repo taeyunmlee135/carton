@@ -10,7 +10,7 @@ import AddFab from '../components/AddFab';
 
 export class chores extends Component {
 
-    // save the chorse as a state
+    // save the chores as a state
     state = {
         chores: null
     };

@@ -79,6 +79,9 @@ class signup extends Component {
                     loading: false
                 })
             })
+
+        // TODO: implement posting to cartons collection
+        
     }
 
     handleChange = (event) => { // target is input to textField, properties name and value
