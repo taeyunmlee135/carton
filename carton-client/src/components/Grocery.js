@@ -30,8 +30,8 @@ class Grocery extends Component {
             <Card>
                 <CardActionArea>
                     <CardContent>
-                        <Typography variant="h5">{item}</Typography>
-                        <Typography variant="h5">{quantity}</Typography>
+                        <Typography variant="h5">item: {item}</Typography>
+                        <Typography variant="h5">quantity: {quantity}</Typography>
                     </CardContent>
                 </CardActionArea> 
                 <CardActions>

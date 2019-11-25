@@ -74,9 +74,6 @@ export class groceries extends Component {
                     <p>Grocery List</p>
                     {recentGroceriesMarkup}
                 </Grid>
-                <Grid item sm={4} xs={12}>
-                    <p>Users</p>
-                </Grid>
                 <AddFabGroceries />
             </Grid>
         )
