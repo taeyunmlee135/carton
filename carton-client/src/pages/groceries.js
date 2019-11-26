@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 // custom components
@@ -66,7 +68,8 @@ export class groceries extends Component {
         ( this.state.groceries.map(g => <Grocery 
                             key={g.groceryId} id= {g.groceryId} grocery={g} ///>))
                             onDeleteClick={this.handleDelete}/>)) // make a Grocery component for each item
-        : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
+        // : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
+        : <CircularProgress size={30} /> // shows spinner while loading
 
         return (
             <Grid container spacing={2}>

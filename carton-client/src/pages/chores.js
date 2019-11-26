@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 // custom components
@@ -100,8 +102,8 @@ export class chores extends Component {
                             key={c.choreId} id= {c.choreId} chore={c} ///>))
                             onDeleteClick={this.handleDelete}
                             /*onEditClick={this.handleEdit}*//>)) // make a Chore component for each item
-        : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
-
+        // : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
+            : <CircularProgress size={30} /> // shows spinner while loading
         return (
             <Grid container spacing={2}>
                 <Grid item sm={8} xs={12}>
