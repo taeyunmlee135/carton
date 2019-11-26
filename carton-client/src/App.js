@@ -56,12 +56,11 @@ class App extends Component {
                     <Route exact path = '/addChores' component = {addChores} />
 
                     {/* if authenticated, login and signup will just redirect to homepage */}
-                    <AuthRoute exact path = '/login' component = {login} authenticated={authenticated}/>
-                    <AuthRoute exact path = '/signup' component = {signup} authenticated={authenticated}/>
+                    {/* <AuthRoute exact path = '/login' component = {login} authenticated={authenticated}/>
+                    <AuthRoute exact path = '/signup' component = {signup} authenticated={authenticated}/> */}
 
-                    {/* without already-authenticated -> redirect check
+                    {/* without already-authenticated -> redirect check */}
                     <Route exact path = '/login' component = {login} />
-                    <Route exact path = '/signup' component = {signup} /> */}
                     <Route exact path = '/signup' component = {signup} />
                     <Route exact path = '/groceries' component = {groceries} />
                     <Route exact path = '/addGroceries' component = {addGroceries} />
