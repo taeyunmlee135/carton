@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 // custom components
@@ -18,7 +20,6 @@ export class chores extends Component {
             chores: null
         };
         this.handleDelete = this.handleDelete.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
     }
 
     componentWillMount(){
@@ -61,7 +62,7 @@ export class chores extends Component {
             console.error("Error removing document: ", error); // throw error if there was error
         });
     }
-
+/*
     handleEdit(event){
         const id = event.target.value;
         console.log(id)
@@ -92,6 +93,7 @@ export class chores extends Component {
             console.error("Error editing document: ", error);
         });
     }
+    */
 
     render(){
 
@@ -99,17 +101,14 @@ export class chores extends Component {
         ( this.state.chores.map(c => <Chore 
                             key={c.choreId} id= {c.choreId} chore={c} ///>))
                             onDeleteClick={this.handleDelete}
-                            onEditClick={this.handleEdit}/>)) // make a Chore component for each item
-        : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
-
+                            /*onEditClick={this.handleEdit}*//>)) // make a Chore component for each item
+        // : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
+            : <CircularProgress size={30} /> // shows spinner while loading
         return (
             <Grid container spacing={2}>
                 <Grid item sm={8} xs={12}>
                     <p>Chores</p>
                     {recentChoresMarkup}
-                </Grid>
-                <Grid item sm={4} xs={12}>
-                    <p>Users</p>
                 </Grid>
                 <AddFab />
             </Grid>

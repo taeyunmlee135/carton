@@ -30,9 +30,9 @@ class Chore extends Component {
             <Card>
                 <CardActionArea>
                     <CardContent>
-                        <Typography variant="h5">{chore}</Typography>
-                        <Typography variant="h5">{userSubmitted}</Typography>
-                        <Typography variant="h5">{userDo}</Typography>
+                        <Typography variant="h5"> chore: {chore}</Typography>
+                        <Typography variant="h5"> {userSubmitted} submitted this chore</Typography>
+                        <Typography variant="h5"> {userDo} should do this chore</Typography>
                     </CardContent>
                 </CardActionArea> 
                 <CardActions>
@@ -42,23 +42,19 @@ class Chore extends Component {
                     >
                     Delete
                     </button>
-                    <button component={Link} to='/editChores'
+                    
+                    {/* <button component={Link} to='/editChores'
                         value = {id}
                         onClick = {this.props.onEditClick}
                     >
                     Edit
-                    </button>
+                    </button> */}
                 </CardActions>
             </Card>
         )
     }
 
 }
-{/* <Button size="small" 
-                        value = {id}
-                        onClick = {this.props.onClick}//() => this.props.onClick()}
-                    >
-                    Delete
-                    </Button> */}
+
 
 export default withStyles(styles)(Chore)

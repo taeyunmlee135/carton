@@ -29,7 +29,6 @@ const styles = (theme) => ({
     ...theme.spreadtoLoginSignup // "spread" the theme so everything in it can be accessed
 });
 
-
 class login extends Component {
     // controlled component method for handling forms in React 
     constructor() {
