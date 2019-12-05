@@ -49,7 +49,7 @@ export class groceries extends Component {
 
                 // re-render state by filtering our the grocery item that has the id we are deleting
                 this.setState({ 
-                    groceriess: this.state.groceries.filter(function(value){
+                    groceries: this.state.groceries.filter(function(value){
                         return value["groceryId"] !== id;
                      })
                 })
