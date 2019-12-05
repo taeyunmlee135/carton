@@ -7,6 +7,8 @@ import themeFile from './util/theme';
 
 import jwtDecode from 'jwt-decode'; // jwt-decode package to decode FBIdToken
 
+import db from './firebase';
+
 // Components 
 import Navbar from './components/Navbar'; 
 import AuthRoute from './util/AuthRoute';
@@ -15,7 +17,7 @@ import AuthRoute from './util/AuthRoute';
 import home from './pages/home';
 import chores from './pages/chores';
 import addChores from './pages/addChores';
-import myCarton from './pages/myCarton';
+import MyCarton from './pages/myCarton';
 import login from './pages/login';
 import signup from './pages/signup';
 import groceries from './pages/groceries';
@@ -29,6 +31,8 @@ const theme = createMuiTheme(themeFile);
 // need to implement Redux to get global state to fix this (somehow? in the tutorial)
 // TODO: is there a way to make the login and signup buttons in the navbar disappear when someone is logged in?
 let authenticated;
+let userEmail;
+let userCarton;
 const token = localStorage.FBIdToken;
 if(token) {
   const decodedToken = jwtDecode(token);
@@ -39,8 +43,28 @@ if(token) {
   }
   else { // user is logged in, set authenticated to true
     authenticated = true;
+
+    // get userEmail
+    userEmail = localStorage.userEmail;
+    console.log(`authenticated, email is ${userEmail}`);
+
+    // find carton of user, save to userCarton variable 
+    db.collection("cartons").where("cartonUsers", "array-contains", userEmail)
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              userCarton = doc.id;
+              console.log("CARTON ID IS: ", userCarton, " => ", doc.data());
+          });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
   }
 }
+
+
 
 class App extends Component {
 
@@ -54,7 +78,19 @@ class App extends Component {
                   <Switch>
                     <Route exact path = '/' component = {home} />
                     <Route exact path = '/chores' component = {chores} />
-                    <Route exact path = '/mycarton' component = {myCarton} />
+
+                    <Route
+                      exact path='/mycarton'
+                      render={(props) => <MyCarton {...props} userEmail={userEmail} userCarton={userCarton} />}
+                    />
+
+                    {/* <Route
+                      exact path='/mycarton'
+                      render={() => <MyCarton userCarton={userCarton} />}
+                    /> */}
+
+                    {/* <Route exact path = '/mycarton' component = {myCarton}/> */}
+                    
                     <Route exact path = '/addChores' component = {addChores} />
 
                     {/* if authenticated, login and signup will just redirect to homepage */}
