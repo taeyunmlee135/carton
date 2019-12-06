@@ -79,6 +79,7 @@ class App extends Component {
                     <Route exact path = '/' component = {home} />
                     <Route exact path = '/chores' component = {chores} />
 
+                    {/* routes to mycarton page and passes in userEmail and userCarton as props */}
                     <Route
                       exact path='/mycarton'
                       render={(props) => <MyCarton {...props} userEmail={userEmail} userCarton={userCarton} />}
