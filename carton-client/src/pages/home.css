@@ -1,0 +1,24 @@
+#hAnnounce {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border-radius: 20px;
+    border-color: lightgray;
+    border-width: 2px
+}
+
+
+.uAnnouncement {
+    width: 25%;
+    background-color: 
+
+}
+
+.uAnnouncement h3 {
+    display: flex; 
+    align-items: center
+}
+
+.uAnnouncement img {
+    margin: 3px
+}
