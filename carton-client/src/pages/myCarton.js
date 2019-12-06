@@ -12,33 +12,33 @@ import Box from '@material-ui/core/Box';
 import profilePicture from '../images/egg.png';
 
 import Chore from '../components/Chore';
-
+import './myCarton.css';
 
 // firebase 
 import db from '../firebase'
 
 
-const useStyles = makeStyles(theme => ({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      margin: '20px',
-      backgroundColor: '#b8d9fd',
-    },
-    gridList: {
-      width: 500,
-      height: 450,
-    },
-    icon: {
-      color: 'rgba(255, 255, 255, 0.54)',
-    },
-    titleBar: {
-      color: '#b8d9fd',
-      backgroundColor: '#b8d9fd'
-    }
-  }));
+// const useStyles = makeStyles(theme => ({
+//     root: {
+//       display: 'flex',
+//       flexWrap: 'wrap',
+//       justifyContent: 'space-around',
+//       overflow: 'hidden',
+//       margin: '20px',
+//       backgroundColor: '#b8d9fd',
+//     },
+//     gridList: {
+//       width: 500,
+//       height: 450,
+//     },
+//     icon: {
+//       color: 'rgba(255, 255, 255, 0.54)',
+//     },
+//     titleBar: {
+//       color: '#b8d9fd',
+//       backgroundColor: '#b8d9fd'
+//     }
+//   }));
 
 export class mycarton extends Component {
 
@@ -109,15 +109,23 @@ export class mycarton extends Component {
         // const classes = useStyles();
         // className={classes.gridList}
 
+        // ( this.state.users.map(udata => (
+        //     <GridListTile key={udata.uname}>
+        //         <img src={profilePicture} alt={"profile"} />
+        //         <GridListTileBar
+        //             title={udata.uname}
+        //             subtitle={<span>email: {udata.uemail}</span>}
+        //         />
+        //     </GridListTile>
+        // )))
+
         let cartonUserDisplay = this.state.users ? 
         ( this.state.users.map(udata => (
-            <GridListTile key={udata.uname}>
-                <img src={profilePicture} alt={"profile"} />
-                <GridListTileBar
-                    title={udata.uname}
-                    subtitle={<span>email: {udata.uemail}</span>}
-                />
-            </GridListTile>
+            <div key={udata.uname} bgcolor="#b8d9fd" className="utile" >
+                <h2> {udata.uname}</h2>
+                <img src={profilePicture} alt={"profile"} width={'50%'}/>
+                <p> email: {udata.uemail}</p>
+            </div>
         )))
         :
         <CircularProgress size={30} /> 
@@ -128,10 +136,23 @@ export class mycarton extends Component {
             <div>
                  
                 <h1> {this.state.cartonID} </h1>
+                    <div className='bigContainer'>
+                        <div id='uTileContainer'>
+                            {/* <h2> haha </h2> */}
+                            {cartonUserDisplay}
 
-                <GridList cellHeight={160} cols={2}>
-                    {cartonUserDisplay}
-                </GridList>
+                        </div>
+
+                        <div id='cartonInfoContainer'>
+                            <strong> Address: </strong> 
+                            <p> 340 E Foothill Blvd </p>
+                            <br/>
+                            <strong> Number of Residents: </strong> 
+                            <p> four </p> 
+
+                        </div>
+                    </div>
+                    
             </div>
             : 
             <CircularProgress size={30} /> 

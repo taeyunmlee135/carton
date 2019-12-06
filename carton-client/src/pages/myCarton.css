@@ -1,0 +1,40 @@
+.bigContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start
+}
+
+#uTileContainer {
+    display: flex;
+    /* size based on item's content NOTE: may be buggy  */
+    /* flex-basis: 80%; */
+    justify-content: space-evenly;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* flex-grow: 2; */
+    flex: 2 1 0;
+    align-content: stretch;
+    text-align: center
+}
+
+.utile {
+    width: 30%;
+    background-color: #b8d9fd;
+    margin: 3%;
+    padding: 10px;
+}
+
+.utile img {
+    float: center
+}
+
+#cartonInfoContainer {
+    /* flex-basis: 2%; */
+    /* margin-left: 50%; */
+    /* flex-grow: 1; */
+    /* flex-shrink: 1; */
+    flex: 1 1 0;
+    background-color: lightgrey;
+    text-align: left;
+    padding: 5px;
+}
