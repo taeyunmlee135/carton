@@ -1,16 +1,30 @@
-#hAnnounce {
+
+/* announcements box */ 
+#announcements { /* wrapper div */ 
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 20px
+}
+
+#announcements button {
+    margin-bottom: 10px;
+}
+
+#hAnnounce { /* div containing announcement items */ 
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     border-radius: 20px;
     border-color: lightgray;
-    border-width: 2px
+    border-width: 2px;
+    
 }
 
-
-.uAnnouncement {
+.uAnnouncement { /* individual announcement items */ 
     width: 25%;
-    background-color: 
+    background-color: lightgray;
+    margin-bottom: 20px;
+    border-radius: 5px;
 
 }
 
@@ -20,5 +34,39 @@
 }
 
 .uAnnouncement img {
-    margin: 3px
+    margin: 3px;
+    border-radius: 10px
 }
+
+.twocol { 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: flex-start
+}
+
+
+/* chores and shopping preview boxes */ 
+.previewBox {  
+    border: 1px solid black;
+    border-radius: 10px;
+    /* width: 50%; */
+    flex: 1 1 30%;
+    text-align: left; 
+    padding: 10px;
+    margin: 20px;
+}
+
+.previewBox h2 {
+    text-align: center
+}
+
+
+ /* shopping box  */
+/* #shoppingPreview { 
+    border: 1px solid black;
+    border-radius: 10px;
+    flex: 1 1 30%;
+    text-align: left;
+    padding: 10px
+} */

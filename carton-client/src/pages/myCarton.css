@@ -14,7 +14,7 @@
     /* flex-grow: 2; */
     flex: 2 1 0;
     align-content: flex-start;
-    text-align: center
+    text-align: center;
 }
 
 .utile {
@@ -22,11 +22,13 @@
     background-color: #b8d9fd;
     margin: 3%;
     padding: 10px;
-    height: auto
+    height: auto;
+    border-radius: 20px
 }
 
 .utile img {
-    float: center
+    float: center;
+    border-radius: 20px
 }
 
 .utile p {
@@ -40,8 +42,10 @@
     /* flex-grow: 1; */
     /* flex-shrink: 1; */
     flex: 1 1 0;
-    background-color: lightgrey;
+    /* background-color: lightgrey; */
     text-align: left;
     padding: 5px;
     margin-top: 2%;
+    border: 1px black solid;
+    border-radius: 10px
 }
