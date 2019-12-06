@@ -99,7 +99,7 @@ export class chores extends Component {
         ( this.state.chores.map(c => <Chore 
                             key={c.choreId} id= {c.choreId} chore={c} ///>))
                             onDeleteClick={this.handleDelete}
-                            /*onEditClick={this.handleEdit}*//>)) // make a Chore component for each item
+                            /*onEditClick={this.handleEdit}*/ />)) // make a Chore component for each item
         : <p>Loading...</p> // shows "Loading..." if no data was fetched yet
 
         return (
