@@ -8,18 +8,27 @@ import Button from '@material-ui/core/Button';
 
 
 class Navbar extends Component {
-
-    
-
-
-    
-
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         renderAuth: null
+    //     };
+    // }
+        
+    // compoenentWillMount() {
+    //     this.setState({
+    //         renderAuth: this.props.authenticated
+    //     });
+    // }
 
     render(){
-
+        // this.forceUpdate();
         // auth aware navbar
         // TODO: have to refresh after logging in to see a different navbar
         const loginOrProfile = (props) => {
+            // this.setState({
+            //     renderAuth: this.props.authenticated
+            // })
             return this.props.authenticated === true ? 
                 <AppBar position='fixed'>
                     <Toolbar> 
@@ -44,7 +53,6 @@ class Navbar extends Component {
 
                     </Toolbar>
                 </AppBar>
-            
         }
 
 

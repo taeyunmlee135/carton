@@ -54,6 +54,7 @@ class login extends Component {
             password: this.state.password
         };
         console.log(userData.email);
+        localStorage.setItem('userEmail', `${userData.email}`);
         
         axios
             .post('https://us-central1-carton-5d613.cloudfunctions.net/api/login', userData)
