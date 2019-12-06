@@ -8,24 +8,30 @@
     display: flex;
     /* size based on item's content NOTE: may be buggy  */
     /* flex-basis: 80%; */
-    justify-content: space-evenly;
+    justify-content: space-evenly left;
     flex-direction: row;
     flex-wrap: wrap;
     /* flex-grow: 2; */
     flex: 2 1 0;
-    align-content: stretch;
+    align-content: flex-start;
     text-align: center
 }
 
 .utile {
-    width: 30%;
+    width: 40%;
     background-color: #b8d9fd;
     margin: 3%;
     padding: 10px;
+    height: auto
 }
 
 .utile img {
     float: center
+}
+
+.utile p {
+    line-height: 4px;
+    word-break: normal;
 }
 
 #cartonInfoContainer {
@@ -37,4 +43,5 @@
     background-color: lightgrey;
     text-align: left;
     padding: 5px;
+    margin-top: 2%;
 }

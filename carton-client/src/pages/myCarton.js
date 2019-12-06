@@ -53,12 +53,30 @@ export class mycarton extends Component {
         this.state = {
             userEmail: props.userEmail,
             cartonID: props.userCarton,
-            users: null
+            users: null,
+            address: null,
+            numRes: 0
         };
         console.log("state carton ID", this.state.cartonID);
         console.log("state user Email", this.state.userEmail);
 
+        // get info about carton, fill in this.state accordingly 
         if (this.state.cartonID) {
+            let cartonDoc = db.collection("cartons").doc(this.state.cartonID);
+
+            // cartonDoc.get()
+            //     .then(data => {
+            //         this.setState({
+            //             address: data.address
+            //         })
+            //     })
+            //     .catch(err => console.error(err));
+
+            // this.setState({
+            //     address: cartonDoc.data.address
+            // })
+
+            // retrieve the users and their profile info, save in state
             db.collection("cartons").doc(this.state.cartonID).collection("users")
             .get()
             .then(data => {
@@ -66,16 +84,22 @@ export class mycarton extends Component {
                 data.forEach(doc => {
                     users.push({
                         uname: doc.data().username,
-                        uemail: doc.id
+                        uemail: doc.data().email,
+                        hours: doc.data().hours,
+                        dietRes: doc.data().dietaryRestrictions,
+                        phone: doc.data().phone,
+                        chorePref: doc.data().chorePref
                     });
                 });
                 this.setState({
-                    users: users
+                    users: users,
+                    numRes: users.length,
                 });
             })
             .catch(err => console.error(err)); 
         }
-            
+        console.log("num users", this.state.numRes);
+        console.log("address: ", this.state.address);    
     }
 
     // componentWillMount(){
@@ -121,10 +145,21 @@ export class mycarton extends Component {
 
         let cartonUserDisplay = this.state.users ? 
         ( this.state.users.map(udata => (
-            <div key={udata.uname} bgcolor="#b8d9fd" className="utile" >
+            <div key={udata.uname} className="utile" >
                 <h2> {udata.uname}</h2>
-                <img src={profilePicture} alt={"profile"} width={'50%'}/>
-                <p> email: {udata.uemail}</p>
+                <img src={profilePicture} alt={"profile"} width={'80%'}/>
+
+                {/* if information is there, return otherwise don't render */}
+                <h4> contact: </h4> 
+                {(udata.phone && udata.phone !== '') ? <p> {udata.phone} </p> : null} 
+                {(udata.uemail && udata.uemail !== '') ? <p> {udata.uemail} </p> : null} 
+
+                <h4> about: </h4>
+                {(udata.dietRes && udata.dietRes !== '') ? <p> dietary restrictions: {udata.dietRes} </p> : null} 
+                {(udata.hours && udata.hours !== '') ? <p> sleep pattern: {udata.hours} </p> : null} 
+                {(udata.chorePref && udata.chorePref !== '') ? <p> prefers: {udata.chorePref}! </p> : null} 
+
+
             </div>
         )))
         :
@@ -144,11 +179,15 @@ export class mycarton extends Component {
                         </div>
 
                         <div id='cartonInfoContainer'>
-                            <strong> Address: </strong> 
-                            <p> 340 E Foothill Blvd </p>
+                            <strong> address: </strong>
+                            <p> 340 E Foothill Blvd </p> 
+                            {/* <p> {this.state.address} </p> */}
                             <br/>
-                            <strong> Number of Residents: </strong> 
-                            <p> four </p> 
+                            <strong> number of residents: </strong> 
+                            <p> {this.state.numRes} </p> 
+                            <br /> 
+                            <strong> carton since: </strong> 
+                            <p> sept 1, 2019 </p> 
 
                         </div>
                     </div>
