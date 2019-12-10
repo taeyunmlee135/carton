@@ -33,5 +33,8 @@
       "last 1 safari version"
     ],
     "proxy": "https://us-central1-carton-5d613.cloudfunctions.net/api"
+  },
+  "engines": {
+    "node": "10.16.3"
   }
 }
