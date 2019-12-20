@@ -94,7 +94,7 @@ class login extends Component {
                         login
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
-                        <Container maxWidth>
+                        <Container>
                         <TextField 
                             id="email"
                             name="email" 
@@ -109,7 +109,7 @@ class login extends Component {
                         /> 
                         </Container>
                         
-                        <Container maxWidth> 
+                        <Container> 
                             
                             
                         <TextField 

@@ -77,7 +77,7 @@ export class mycarton extends Component {
             // })
 
             // retrieve the users and their profile info, save in state
-            db.collection("cartons").doc(this.state.cartonID).collection("users")
+            cartonDoc.collection("users")
             .get()
             .then(data => {
                 let users = [];

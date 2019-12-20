@@ -22,9 +22,10 @@
 
 .uAnnouncement { /* individual announcement items */ 
     width: 25%;
-    background-color: lightgray;
+    /* background-color: lightgray; */
     margin-bottom: 20px;
-    border-radius: 5px;
+    border-left: 5px lightgray solid;
+    /* border-radius: 5px; */
 
 }
 

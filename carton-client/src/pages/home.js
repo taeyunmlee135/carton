@@ -37,7 +37,7 @@ export class home extends Component {
                 </Button>
             </div> 
 
-            <div class="twocol">
+            <div className="twocol">
                 <div className="previewBox" id="chorePreview"> 
                     <h2> chores! </h2>
                         <div id="hChores"> 

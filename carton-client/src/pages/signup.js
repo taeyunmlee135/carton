@@ -67,6 +67,50 @@ class signup extends Component {
                 console.log(res.data); 
                 // save token locally in case browser refreshes
                 localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`); 
+                localStorage.setItem('userEmail', `${newUserData.email}`);
+
+                /*******IMPLEMENT CARTON GROUPINGS ***** */
+                // // create document for new user in users collection w/ username as doc id 
+                // db.doc(`/users/${newUser.username}`).set(userCredentials); 
+            
+                // // add user to their carton 
+                // db.doc(`/cartons/${newUser.cartonID}`).get()
+                //     .then(doc => { 
+                //         if(doc.exists) { // carton already exists; add to users collection and array
+                //             // create a doc in the 'users' collection 
+                //             let cartonDoc = db.collection("cartons").doc(newUser.cartonID);
+                //             // db.doc(`/cartons/${newUser.cartonID}/users/${newUser.username}`)
+                //             cartonDoc.collection("users").doc()
+                //             .set({
+                //                 email: newUser.email,
+                //                 username: newUser.username
+                //             })
+                //             .then(doc => {
+                //                 console.log(`${doc.id} document created successfully`);
+                //             })
+                //             .catch(err => {
+                //                 console.error(err);
+                //             });
+                            
+                //             // add user email to 'cartonUsers' array of emails
+                //             doc.update({
+                //             cartonUsers: firebase.firestore.FieldValue.arrayUnion(`${newUser.email}`)
+                //             }); 
+
+                // }
+                // else { // new carton 
+                //     // return firebase
+                //     //   .auth()
+                //     //   .createUserWithEmailAndPassword(newUser.email, newUser.password);
+                // }
+                // })
+                // .catch(err => {
+                //     console.error(err);
+                // });
+
+                /******************************** */
+
+
                 this.setState({
                     loading: false
                 });
@@ -103,7 +147,7 @@ class signup extends Component {
                     </Typography>
                     <form noValidate onSubmit={this.handleSubmit}>
 
-                        <Container maxWidth>
+                        <Container >
                         <TextField 
                             id="email"
                             name="email" 
@@ -118,7 +162,7 @@ class signup extends Component {
                         /> 
                         </Container>
                         
-                        <Container maxWidth>
+                        <Container >
                         <TextField 
                             id="password" 
                             name="password" 
@@ -134,7 +178,7 @@ class signup extends Component {
                         </Container> 
 
 
-                        <Container maxWidth>
+                        <Container >
                         <TextField 
                             id="reenterPassword" 
                             name="reenterPassword" 
@@ -150,7 +194,7 @@ class signup extends Component {
                         </Container> 
 
 
-                        <Container maxWidth>
+                        <Container >
                         <TextField 
                             id="username" 
                             name="username" 
@@ -166,7 +210,7 @@ class signup extends Component {
                         </Container> 
 
 
-                        <Container maxWidth>
+                        <Container >
                         <TextField 
                             id="cartonID" 
                             name="cartonID" 

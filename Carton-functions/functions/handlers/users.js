@@ -27,8 +27,8 @@ exports.signup = (req, res) => {
         }
         else { // valid username; create account 
           return firebase
-        .auth()
-        .createUserWithEmailAndPassword(newUser.email, newUser.password);
+            .auth()
+            .createUserWithEmailAndPassword(newUser.email, newUser.password);
         }
       })
       .then((data) => { // if we get here, user has been created
@@ -43,8 +43,46 @@ exports.signup = (req, res) => {
           cartonID: newUser.cartonID,
           userId
         };
-        // create document for new user in users collection w/ username as doc id 
-        db.doc(`/users/${newUser.username}`).set(userCredentials); 
+
+        // // create document for new user in users collection w/ username as doc id 
+        db.doc(`/users/${newUser.username}`).set(userCredentials).then(doc => {
+          console.log("added to users");
+        }); 
+      
+        // add user to their carton // NEVER GETS TO THIS CODE?? todo: USE CONSOLE LOG TO CHECK
+        console.log(`adding user to carton ${newUser.cartonID}`);
+        db.doc(`/cartons/${newUser.cartonID}`).get()
+          .then(doc => { 
+          if(doc.exists) { // carton already exists; add to users collection and array
+            console.log(`existing carton: ${newUser.cartonID}`);
+            // create a doc in the 'users' collection 
+            let cartonDoc = db.collection("cartons").doc(`${newUser.cartonID}`);
+            // db.doc(`/cartons/${newUser.cartonID}/users/${newUser.username}`)
+            cartonDoc.collection("users").add({
+                email: newUser.email,
+                username: newUser.username
+              })
+              .then(doc => {
+                console.log(`${doc.id} document created successfully`);
+              })
+              .catch(err => {
+                console.error(err);
+              });
+            
+            // add user email to 'cartonUsers' array of emails
+            doc.update({
+              cartonUsers: firebase.firestore.FieldValue.arrayUnion(`${newUser.email}`)
+            }); 
+
+          }
+          else { // new carton 
+            console.log(`new carton ${newUser.cartonID}`);
+            // return firebase
+            //   .auth()
+            //   .createUserWithEmailAndPassword(newUser.email, newUser.password);
+          }
+        })
+      
       })
       .then(() => {
         return res.status(201).json({ token });
