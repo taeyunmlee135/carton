@@ -8,16 +8,23 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 //import CardMedia from '@material-ui/core/CardMedia'; 
 
 // Link 
 import Link from 'react-router-dom/Link';
+
+ 
+
 
 const styles = {
     card: {
         display: 'flex'
     }
 }
+
 
 // This is our component that will render a chore
 class Chore extends Component { 
@@ -33,6 +40,12 @@ class Chore extends Component {
                         <Typography variant="h5"> chore: {chore}</Typography>
                         <Typography variant="h5"> {userSubmitted} submitted this chore</Typography>
                         <Typography variant="h5"> {userDo} should do this chore</Typography>
+                        {/* <FormControlLabel
+                            control={
+                            <Checkbox checked={false} onChange={this.props.onDeleteClick} value = {id} />
+                            }
+                            label="Done"
+                        /> */}
                     </CardContent>
                 </CardActionArea> 
                 <CardActions>
