@@ -40,12 +40,12 @@ class Chore extends Component {
                         <Typography variant="h5"> chore: {chore}</Typography>
                         <Typography variant="h5"> {userSubmitted} submitted this chore</Typography>
                         <Typography variant="h5"> {userDo} should do this chore</Typography>
-                        <FormControlLabel
+                        {/* <FormControlLabel
                             control={
                             <Checkbox checked={false} onChange={this.props.onDeleteClick} value = {id} />
                             }
                             label="Done"
-                        />
+                        /> */}
                     </CardContent>
                 </CardActionArea> 
                 <CardActions>
